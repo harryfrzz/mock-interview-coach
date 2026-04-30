@@ -10,9 +10,11 @@ class InterviewerAgent:
         self.system_prompt = load_prompt("interviewer.md")
 
     def ask_question(self, state: SessionState, focus_for_next_question: str) -> str:
+        question_style = "advanced" if state.difficulty == "hard" else "standard"
         user_prompt = json.dumps(
             {
                 "session": state.summary(),
+                "question_style": question_style,
                 "focus_for_next_question": focus_for_next_question,
                 "instruction": "Ask exactly one interview question. Return only the question text.",
             },

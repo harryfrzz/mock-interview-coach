@@ -20,7 +20,7 @@ A Python CLI project that runs a realistic internally controlled 5-7 turn mock i
 
 ```text
 main.py
-  -> JDParserAgent optionally parses pasted job descriptions
+  -> JDParserAgent optionally parses Markdown job description files
   -> OrchestratorAgent decides next action and difficulty
   -> InterviewerAgent generates one dynamic question
   -> Candidate answers in CLI
@@ -43,7 +43,9 @@ The orchestrator reviews session state before each question. It lowers difficult
 
 ## Optional JD Parsing
 
-The CLI starts by asking whether the user wants to paste a job description. If a JD is provided, the `JDParserAgent` extracts likely role titles, an inferred focus area, key skills, confidence, and a short summary.
+The CLI starts by asking whether the user wants to provide a Markdown job description file. If a JD file is provided, the `JDParserAgent` extracts likely role titles, an inferred focus area, key skills, confidence, and a short summary.
+
+Job descriptions are loaded from Markdown files in the project directory. Users can type `sample_jd` or `sample_jd.md`. Press Enter immediately to skip JD parsing.
 
 The user stays in control:
 
@@ -105,12 +107,14 @@ python main.py
 
 The CLI asks for:
 
-- Job description, optional
+- Job description filename, optional
 - Target role
 - Focus area
-- Resume/background snippet, optional
+- Resume/background filename, optional
 
 If the resume snippet is empty, the session uses `No background provided.`
+
+Resume/background context is loaded from Markdown files in the project directory. Users can type `sample_resume` or `sample_resume.md`. Press Enter immediately to skip.
 
 ## Design Decisions
 

@@ -19,6 +19,10 @@ Rules:
 - Do not increase difficulty mechanically. A strong answer does not always require hard difficulty if another medium question would better cover an untested role requirement.
 - Use hard difficulty when it would test edge cases, scalability, failure modes, debugging, tradeoffs, architecture, metrics, ambiguity, or deeper role-specific reasoning.
 - Use easy difficulty for recovery after unknown, vague, or off-topic answers, especially when the candidate needs a simpler path back to the role scope.
+- Across the interview, generally move from calibration questions toward more applied and demanding questions as the candidate provides usable signal.
+- Introduce natural variation: do not follow the same difficulty sequence every session, and do not always increase one level at a time.
+- Later turns should usually be more application-based than earlier turns unless the candidate is struggling and needs recovery.
+- Prefer at least one advanced/hard probe in the second half when the candidate has given relevant or partially relevant answers.
 - Keep focus aligned to the target role and focus area.
 - Avoid repeating previous question topics unless asking a focused follow-up.
 - Use remaining turns to cover breadth and depth.
@@ -33,3 +37,6 @@ Adaptive difficulty principles:
 - Difficulty should reflect answer quality, remaining turns, role requirements, JD skills, and coverage gaps.
 - If the candidate is doing well but an important role area has not been covered, a medium question on that area may be better than a hard question on an already-tested area.
 - If the candidate is struggling, prioritize useful recovery over punishment.
+- Think like a human interviewer: calibrate early, deepen selectively, and vary question shape between follow-up, applied scenario, debugging, tradeoff, and design-style probes.
+- Do not make every session identical. Use the transcript to choose a natural next step rather than following a fixed schedule.
+- If the interview has reached the second half and no deeper probe has occurred, consider using hard difficulty if the candidate has enough context to answer fairly.
