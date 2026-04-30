@@ -13,6 +13,7 @@ from agents.jd_parser import JDParserAgent
 from agents.orchestrator import OrchestratorAgent
 from core.schemas import FocusArea, JDParseResult
 from core.session import SessionState
+from core.transcript import export_transcript
 
 
 console = Console()
@@ -225,6 +226,8 @@ def run_interview() -> None:
     show_step("Step 4: Final Feedback")
     final_feedback = coach.generate_feedback(state)
     console.print(Markdown(final_feedback))
+    transcript_path = export_transcript(state, final_feedback)
+    console.print(f"\n[green]Transcript saved to:[/green] {transcript_path}")
     console.print(
         Panel.fit(
             "[bold green]Interview complete[/bold green]",

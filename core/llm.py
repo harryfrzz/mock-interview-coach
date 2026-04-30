@@ -17,10 +17,12 @@ def call_llm(system_prompt: str, user_prompt: str, temperature: float = 0.4) -> 
     if not api_key:
         raise RuntimeError("GEMINI_API_KEY is missing. Add it to your .env file.")
 
-    import google.generativeai as genai
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", FutureWarning)
+        import google.generativeai as genai
 
     genai.configure(api_key=api_key)
-    model_name = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
+    model_name = os.getenv("GEMINI_MODEL", "gemini-3-flash-preview")
     model = genai.GenerativeModel(model_name)
     response = model.generate_content(
         f"{system_prompt}\n\nUser:\n{user_prompt}",
