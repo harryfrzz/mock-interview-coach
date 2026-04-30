@@ -82,6 +82,16 @@ main.py
 
 The app keeps all session state in memory through `core/session.py`. JSON-style outputs from the parser, evaluator, and orchestrator are validated with Pydantic schemas in `core/schemas.py`.
 
+## Key Design Decisions And Tradeoffs
+
+- The system uses separate agents for parsing, interviewing, evaluation, orchestration, and coaching so each component has a clear role instead of one large prompt doing everything.
+- The orchestrator controls difficulty and follow-up behavior based on previous evaluations, which makes the interview adaptive instead of a fixed question list.
+- Evaluator and orchestrator outputs use structured JSON validated with Pydantic, while final coaching uses Markdown because it is meant to be read by the candidate.
+- JD and resume inputs are loaded from Markdown filenames instead of pasted directly into the terminal to avoid terminal buffer issues with long text.
+- The JD parser is the main grounding feature: it extracts role requirements and skills from the provided JD, but the app does not add web search, RAG, or external question banks.
+- The interview length is controlled internally at 5-7 turns to keep sessions realistic and prevent runaway conversations.
+- Completed sessions are exported to `output/` as Markdown so the candidate can review the full transcript and assessment later.
+
 ## Model
 
 The app uses Gemini through the `google-generativeai` Python package.
