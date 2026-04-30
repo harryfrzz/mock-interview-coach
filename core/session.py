@@ -5,9 +5,12 @@ from core.schemas import Difficulty, InterviewTurn, TurnEvaluation
 
 @dataclass
 class SessionState:
-    role: str
+    target_role: str
     focus_area: str
-    resume: str
+    resume_snippet: str
+    jd_text: str = "No job description provided."
+    jd_summary: str = ""
+    jd_skills: list[str] = field(default_factory=list)
     total_turns: int = 6
     difficulty: Difficulty = "medium"
     turns: list[InterviewTurn] = field(default_factory=list)
@@ -39,9 +42,12 @@ class SessionState:
 
     def summary(self) -> dict[str, object]:
         return {
-            "role": self.role,
+            "target_role": self.target_role,
             "focus_area": self.focus_area,
-            "resume": self.resume,
+            "resume_snippet": self.resume_snippet,
+            "jd_text": self.jd_text,
+            "jd_summary": self.jd_summary,
+            "jd_skills": self.jd_skills,
             "total_turns": self.total_turns,
             "current_turn": len(self.turns),
             "difficulty": self.difficulty,

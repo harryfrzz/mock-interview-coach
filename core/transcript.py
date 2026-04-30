@@ -17,7 +17,7 @@ def export_transcript(state: SessionState, final_feedback: str) -> Path:
     """Write the completed interview transcript and feedback to output/*.md."""
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-    file_path = OUTPUT_DIR / f"{timestamp}-{_slugify(state.role)}.md"
+    file_path = OUTPUT_DIR / f"{timestamp}-{_slugify(state.target_role)}.md"
 
     lines = [
         "# AI Mock Interview Coach Transcript",
@@ -26,9 +26,11 @@ def export_transcript(state: SessionState, final_feedback: str) -> Path:
         "",
         "## Session Details",
         "",
-        f"- Target role: {state.role}",
+        f"- Target role: {state.target_role}",
         f"- Focus area: {state.focus_area}",
-        f"- Resume snippet: {state.resume}",
+        f"- Resume/background: {state.resume_snippet}",
+        f"- JD summary: {state.jd_summary or 'No job description summary provided.'}",
+        f"- JD skills: {', '.join(state.jd_skills) or 'None provided'}",
         f"- Completed turns: {len(state.turns)}",
         f"- Final difficulty: {state.difficulty}",
         "",
