@@ -13,7 +13,7 @@ A Python CLI project that runs a realistic internally controlled 5-7 turn mock i
 - Multi-dimensional scoring across relevance, depth, clarity, role alignment, and communication
 - Structured final feedback in Markdown
 - Simple Rich-powered CLI
-- OpenAI and Gemini provider support
+- Gemini API support
 - Environment-based configuration via `.env`
 
 ## Architecture
@@ -90,14 +90,11 @@ cp .env.example .env
 ## Environment Variables
 
 ```text
-OPENAI_API_KEY=
 GEMINI_API_KEY=
-LLM_PROVIDER=openai
-OPENAI_MODEL=gpt-4o-mini
 GEMINI_MODEL=gemini-1.5-flash
 ```
 
-`LLM_PROVIDER` can be `openai` or `gemini`. OpenAI is the default.
+Only Gemini is currently supported. Set `GEMINI_API_KEY` before running the app.
 
 ## Run
 

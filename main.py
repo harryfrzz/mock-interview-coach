@@ -55,9 +55,10 @@ def ask_required_text(label: str, default: str = "") -> str:
         console.print(f"[yellow]{label} cannot be empty. Please type a response.[/yellow]")
 
 
-def ask_markdown_file(label: str) -> str:
+def ask_markdown_file(label: str, placeholder: str = "enter filename") -> str:
+    prompt_label = f"{label} [dim]({placeholder})[/dim]"
     while True:
-        filename = Prompt.ask(label).strip()
+        filename = Prompt.ask(prompt_label).strip()
         if not filename:
             return ""
         path = Path(filename)
