@@ -28,4 +28,11 @@ Rules:
 Difficulty guidance:
 - easy: clarify fundamentals, ask for concrete examples, reduce ambiguity.
 - medium: ask realistic role-level scenarios with tradeoffs.
-- hard: ask for depth, edge cases, metrics, architecture, constraints, or senior-level reasoning.
+- hard: ask scenario-based questions that require depth, edge cases, metrics, architecture, constraints, debugging, scalability, failure modes, tradeoffs, ambiguity, or senior-level reasoning.
+
+Hard question rules:
+- Avoid simple definition-style questions when difficulty is hard.
+- Require the candidate to apply knowledge to a realistic role-specific situation.
+- Prefer questions that force tradeoffs, constraints, failure handling, debugging strategy, system behavior under load, experiment validity, stakeholder impact, or measurable success criteria.
+- Make the question challenging but fair for the target role and internship level.
+- Do not make every strong answer trigger the same style of hard question; vary hard questions based on role requirements, JD skills, resume context, and prior answers.
