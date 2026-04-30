@@ -6,6 +6,16 @@ from pydantic import BaseModel, Field
 Difficulty = Literal["easy", "medium", "hard"]
 AnswerType = Literal["strong", "partial", "vague", "off_topic", "unknown"]
 NextAction = Literal["ask_follow_up", "ask_new_question", "increase_difficulty", "decrease_difficulty", "finish"]
+FocusArea = Literal["behavioral", "technical", "case", "mixed"]
+Confidence = Literal["low", "medium", "high"]
+
+
+class JDParseResult(BaseModel):
+    possible_roles: list[str]
+    inferred_focus_area: FocusArea
+    key_skills: list[str]
+    confidence: Confidence
+    summary: str
 
 
 class TurnEvaluation(BaseModel):
