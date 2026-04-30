@@ -11,6 +11,7 @@ A Python CLI project that runs a realistic internally controlled 5-7 turn mock i
 - Detection of vague, off-topic, partial, strong, and "I don't know" answers
 - Multi-dimensional scoring across relevance, depth, clarity, role alignment, and communication
 - Structured final feedback in Markdown
+- Automatic Markdown transcript export to `output/`
 - Simple Rich-powered CLI
 - OpenAI and Gemini provider support
 - Environment-based configuration via `.env`
@@ -92,6 +93,10 @@ The CLI asks for:
 
 If the resume snippet is empty, the session uses `No background provided.`
 
+Target role, focus area, and interview answers are required inputs. If an answer is submitted empty, the CLI asks again instead of silently filling in a default response.
+
+After the final feedback is generated, the app writes the full transcript to `output/` as a timestamped Markdown file.
+
 ## Design Decisions
 
 - Prompts are stored separately in `prompts/` to keep agent behavior easy to inspect and tune.
@@ -108,7 +113,6 @@ If the resume snippet is empty, the session uses `No background provided.`
 
 ## Limitations
 
-- No automated transcript export yet.
 - No local/offline model provider.
 - No rubric customization from config files.
 - No question bank, retrieval, or external knowledge lookup.
@@ -118,7 +122,7 @@ If the resume snippet is empty, the session uses `No background provided.`
 - Add a curated question bank by role and difficulty.
 - Add RAG over resume, job descriptions, and company-specific interview material.
 - Add web search for current company and role context.
-- Add transcript export to Markdown or JSON.
+- Add JSON transcript export.
 - Add automated tests with mocked LLM responses.
 
 ## Example Transcripts

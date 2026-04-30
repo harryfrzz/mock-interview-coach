@@ -8,6 +8,7 @@ from agents.evaluator import EvaluatorAgent
 from agents.interviewer import InterviewerAgent
 from agents.orchestrator import OrchestratorAgent
 from core.session import SessionState
+from core.transcript import export_transcript
 
 
 console = Console()
@@ -21,9 +22,17 @@ def _safe_target_turns() -> int:
     return min(max(TARGET_TURNS, MIN_TURNS), MAX_TURNS)
 
 
+def ask_required_text(label: str) -> str:
+    while True:
+        value = Prompt.ask(label).strip()
+        if value:
+            return value
+        console.print("[yellow]Please enter a response before continuing.[/yellow]")
+
+
 def collect_session_state() -> SessionState:
-    role = Prompt.ask("Target role").strip()
-    focus_area = Prompt.ask("Focus area").strip()
+    role = ask_required_text("Target role")
+    focus_area = ask_required_text("Focus area")
     resume = Prompt.ask("Resume snippet (optional)").strip() or "No background provided."
     return SessionState(role=role, focus_area=focus_area, resume=resume, total_turns=_safe_target_turns())
 
@@ -45,7 +54,7 @@ def run_interview() -> None:
         state.difficulty = decision.difficulty
         question = interviewer.ask_question(state, decision.focus_for_next_question)
         console.print(Panel(question, title=f"Question {len(state.turns) + 1} | {state.difficulty}"))
-        answer = Prompt.ask("Your answer").strip() or "I don't know."
+        answer = ask_required_text("Your answer")
 
         evaluation = evaluator.evaluate(state, question, answer)
         state.add_turn(question, answer, evaluation)
@@ -54,8 +63,11 @@ def run_interview() -> None:
             f"relevance {evaluation.relevance}/5, depth {evaluation.depth}/5[/dim]"
         )
 
+    final_feedback = coach.generate_feedback(state)
     console.print("\n[bold cyan]Final Feedback[/bold cyan]")
-    console.print(Markdown(coach.generate_feedback(state)))
+    console.print(Markdown(final_feedback))
+    transcript_path = export_transcript(state, final_feedback)
+    console.print(f"\n[green]Transcript saved to:[/green] {transcript_path}")
 
 
 if __name__ == "__main__":
