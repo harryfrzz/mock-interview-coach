@@ -5,3 +5,5 @@ __pycache__/
 .DS_Store
 .pytest_cache/
 .mypy_cache/
+output/*.md
+!output/.gitkeep
