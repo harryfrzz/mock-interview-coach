@@ -33,8 +33,6 @@ TECHNICAL_SKILL_TERMS = {
     "model",
     "api",
 }
-
-
 def _fallback_result() -> JDParseResult:
     return JDParseResult(
         possible_roles=[],
@@ -72,6 +70,18 @@ def _normalize_focus_area(result: JDParseResult) -> JDParseResult:
     return result
 
 
+def _prefer_explicit_roles(roles: list[str], jd_text: str) -> list[str]:
+    normalized_jd = re.sub(r"\s+", " ", jd_text.lower())
+    explicit_roles = []
+
+    for role in roles:
+        normalized_role = re.sub(r"\s+", " ", role.lower()).strip()
+        if re.search(rf"\b{re.escape(normalized_role)}\b", normalized_jd):
+            explicit_roles.append(role)
+
+    return explicit_roles or roles
+
+
 class JDParserAgent:
     def __init__(self) -> None:
         self.system_prompt = load_prompt("jd_parser.md")
@@ -90,6 +100,6 @@ class JDParserAgent:
         except (RuntimeError, json.JSONDecodeError, ValidationError):
             return _fallback_result()
 
-        result.possible_roles = result.possible_roles[:5]
+        result.possible_roles = _prefer_explicit_roles(result.possible_roles, jd_text)[:5]
         result.key_skills = result.key_skills[:10]
         return _normalize_focus_area(result)
