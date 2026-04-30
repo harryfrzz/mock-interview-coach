@@ -170,7 +170,11 @@ output/20260430-153000-ai-engineer-intern.md
 
 The exported file includes session details, JD summary, JD skills, every question and answer, turn-by-turn evaluation, and final feedback.
 
-## Example Transcript 1: Using JD And Resume
+## Example Interview Transcripts
+
+These short examples show the types of sessions the app can handle. Actual questions and feedback may vary because the interviewer, evaluator, orchestrator, and coach are LLM-driven.
+
+## Example Transcript 1: Strong Candidate
 
 ```text
 $ python main.py
@@ -195,37 +199,39 @@ Start interview? [y/n] (y): y
 Question 1 of 6
 Can you walk me through how you would design a small RAG-based learning assistant for course notes?
 
-Your answer: I would chunk the notes, create embeddings, retrieve relevant chunks, and ask the LLM to answer only from that context.
+Your answer: I would first define the target use case, such as answering questions from course notes. Then I would chunk the notes by section, generate embeddings, store them in a vector index, retrieve the top relevant chunks for each query, and pass only those chunks to the LLM. I would also tell the model to say when the answer is not present in the context, and I would evaluate outputs using a small test set for relevance, factual grounding, and completeness.
 
 Quick Evaluation
-Type       partial
-Relevance  4/5
-Depth      3/5
+Type       strong
+Relevance  5/5
+Depth      5/5
+
+Question 2 of 6
+How would you reduce hallucinations in that learning assistant?
+
+Your answer: I would use retrieval-grounded prompts, ask the model to cite the specific context it used, reject answers when retrieval confidence is low, and maintain an evaluation set with unsupported-answer examples. I would also inspect failures by separating retrieval errors from generation errors.
+
+Quick Evaluation
+Type       strong
+Relevance  5/5
+Depth      4/5
 ```
 
-## Example Transcript 2: Skipping The JD
+## Example Transcript 2: Weak Candidate Recovery
 
 ```text
 $ python main.py
 
-Job description filename (optional, press Enter to skip) (enter filename):
+Job description filename (optional, press Enter to skip) (enter filename): sample_jd
+Parsing job description...
 
-Target role: Backend Engineer Intern
-Focus area (behavioral / technical / case / mixed): technical
-Resume/background filename (optional, press Enter to skip) (enter filename):
+Target role [AI Engineer Intern]:
+Focus area (behavioral / technical / case / mixed) [technical]:
+Resume/background filename (optional, press Enter to skip) (enter filename): sample_resume
 Start interview? [y/n] (y): y
 
 Question 1 of 6
-Tell me about a backend API you would design for a small product feature and what tradeoff you would consider first?
-
-Your answer: I would start with REST endpoints, validate inputs, add database persistence, and keep the design simple until scale requires more complexity.
-```
-
-## Example Transcript 3: Weak Answer Recovery
-
-```text
-Question 2 of 6
-How would you evaluate whether an LLM answer is grounded in the retrieved context?
+Can you explain how you would evaluate whether an LLM answer is grounded in the retrieved context?
 
 Your answer: I am not sure.
 
@@ -234,10 +240,49 @@ Type       unknown
 Relevance  1/5
 Depth      1/5
 
-Question 3 of 6
+Question 2 of 6
 Let's make that simpler: what is one sign that an LLM answer may not be supported by the provided context?
 
-Your answer: If it mentions facts that were not present in the retrieved notes, that could be hallucination.
+Your answer: If it gives facts that were not in the course notes, that might be hallucination.
+
+Quick Evaluation
+Type       partial
+Relevance  4/5
+Depth      2/5
+```
+
+## Example Transcript 3: Tricky Edge Case
+
+```text
+$ python main.py
+
+Job description filename (optional, press Enter to skip) (enter filename): sample_jd
+Parsing job description...
+
+Target role [AI Engineer Intern]:
+Focus area (behavioral / technical / case / mixed) [technical]:
+Resume/background filename (optional, press Enter to skip) (enter filename): sample_resume
+Start interview? [y/n] (y): y
+
+Question 1 of 6
+How would you decide whether a poor answer from a learning assistant is caused by retrieval quality or prompt design?
+
+Your answer: I would improve the prompt and increase the number of retrieved chunks.
+
+Quick Evaluation
+Type       partial
+Relevance  3/5
+Depth      2/5
+
+Question 2 of 6
+That's a useful start. What single test would you run first to determine whether the retrieved context contains the correct answer?
+
+Your answer: I would manually inspect the top retrieved chunks for a few failed questions and check whether the correct answer is present before changing the generation prompt.
+
+Quick Evaluation
+Type       strong
+Relevance  5/5
+Depth      4/5
 ```
 
 ## Notes
