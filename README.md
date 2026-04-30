@@ -22,6 +22,8 @@ Do not paste a long job description directly into the terminal prompt. Long past
 
 Instead, save the JD in a Markdown file and pass only the filename when the program asks for it.
 
+The JD & Resume Markdown file must be present in the same directory where you run `python main.py`.
+
 Example:
 
 ```text
@@ -35,8 +37,6 @@ sample_jd.md
 ```
 
 The included `sample_jd.md` is based on the original upGrad LinkedIn job post for the AI Engineer Intern role. You can edit `sample_jd.md` to use any other job description.
-
-The resume/background works the same way. Edit `sample_resume.md` and pass `sample_resume` or `sample_resume.md` when prompted.
 
 ## Project Files
 
