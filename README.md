@@ -16,9 +16,9 @@ A Python CLI mock interview coach that uses Gemini and a small multi-agent workf
 - Rich-powered terminal UI.
 - Gemini API integration through environment variables.
 
-## Important JD Input Warning
+## Important JD & Resume snippet Input Warning
 
-Do not paste a long job description directly into the terminal prompt. Long pasted text can get cut off because of terminal buffer/input issues, and that can cause parsing errors or broken interview context.
+Do not paste a long job description or the resume snippet directly into the terminal prompt. Long pasted text can get cut off because of terminal buffer/input issues, and that can cause parsing errors or broken interview context.
 
 Instead, save the JD in a Markdown file and pass only the filename when the program asks for it.
 
